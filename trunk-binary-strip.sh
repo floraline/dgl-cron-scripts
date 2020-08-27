@@ -5,8 +5,9 @@ echo "Stripping trunk binaries"
 
 DiskStart=$(du -b /home/crawl/DGL/usr/games | cut -f1)
 
-# strip large trunk binaries starting with 11th oldest
-find /home/crawl/DGL/usr/games -name '*-git-*' -printf "%T+\t%s\t%p\n" | sort -r | tail -n +11 | awk '$2 > 52428800 { print $3 }' | xargs -r strip --preserve-dates --strip-unneeded --verbose
+# strip large trunk binaries starting with 21th newest.
+# this means the 20 most recent binaries will not be affected
+find /home/crawl/DGL/usr/games -name '*-git-*' -printf "%T+\t%s\t%p\n" | sort -r | tail -n +21 | awk '$2 > 52428800 { print $3 }' | xargs -r strip --preserve-dates --strip-unneeded --verbose
 
 DiskEnd=$(du -b /home/crawl/DGL/usr/games | cut -f1)
 
